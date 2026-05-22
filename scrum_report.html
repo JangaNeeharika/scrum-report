@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Scrum Report</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: #e0ded6;
+    --text: #1a1916;
+    --muted: #7a7870;
+    --accent: #2563eb;
+    --accent-light: #eff4ff;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --red: #dc2626;
+    --red-light: #fef2f2;
+    --purple: #7c3aed;
+    --purple-light: #f5f3ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Full-width outer shell */
+  .shell {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg);
+  }
+
+  /* Content constrained for readability, but background stretches full */
+  .content-wrap {
+    width: 100%;
+    max-width: 640px;
+    padding: 28px 20px 80px;
+    flex: 1;
+  }
+
+  /* ── Header ── */
+  .header { margin-bottom: 28px; }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+  .app-name { font-size: 20px; font-weight: 600; }
+  .date-badge {
+    font-size: 12px; font-family: 'DM Mono', monospace;
+    background: var(--surface); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 20px; color: var(--muted);
+  }
+  .header-sub { font-size: 13px; color: var(--muted); }
+
+  /* ── Progress bar ── */
+  .step-progress { margin-bottom: 24px; }
+  .step-progress-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+  .step-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .step-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--purple)); transition: width 0.4s ease; }
+
+  /* ── Dots row ── */
+  .dots-row { display: flex; gap: 5px; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
+  .dot {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--surface); border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600; color: var(--muted);
+    cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+  }
+  .dot.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .dot.done   { background: var(--green); border-color: var(--green); color: #fff; }
+  .dot-line { flex: 1; min-width: 8px; height: 1.5px; background: var(--border); }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px; margin-bottom: 16px;
+    width: 100%;
+  }
+  .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .card-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+
+  /* ── Form fields ── */
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+  input[type=text], input[type=number], select, textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; font-size: 14px; font-family: 'DM Sans', sans-serif;
+    color: var(--text); background: var(--bg); outline: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  input[type=text]:focus, input[type=number]:focus, select:focus, textarea:focus {
+    border-color: var(--accent); background: #fff;
+  }
+  textarea { resize: none; line-height: 1.5; }
+  ::placeholder { color: #bbb; }
+  select { cursor: pointer; }
+
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; }
+
+  /* ── Member header ── */
+  .member-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: var(--accent-light); border: 1.5px solid #bfdbfe;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; color: var(--accent);
+    font-family: 'DM Mono', monospace; flex-shrink: 0;
+  }
+  .member-name-display { font-size: 15px; font-weight: 600; }
+  .member-name-sub { font-size: 12px; color: var(--muted); }
+
+  .q-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--muted); font-family: 'DM Mono', monospace;
+    margin-bottom: 6px; margin-top: 14px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .qdot { width: 6px; height: 6px; border-radius: 50%; }
+  .qdot.y { background: var(--accent); }
+  .qdot.t { background: var(--green); }
+  .qdot.b { background: var(--red); }
+
+  /* ── Buttons ── */
+  .nav-row { display: flex; gap: 10px; margin-top: 16px; }
+  .btn {
+    flex: 1; padding: 12px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--surface);
+    color: var(--muted); font-size: 14px; font-family: 'DM Sans', sans-serif;
+    font-weight: 500; cursor: pointer; transition: all 0.15s;
+  }
+  .btn:hover { background: var(--surface2); color: var(--text); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.primary:hover { background: #1d4ed8; }
+  .btn.success { background: var(--green); border-color: var(--green); color: #fff; }
+  .btn.success:hover { background: #15803d; }
+  .btn.danger  { background: var(--red); border-color: var(--red); color: #fff; }
+  .btn.pdf-btn { background: #7c3aed; border-color: #7c3aed; color: #fff; font-size: 15px; padding: 14px; }
+  .btn.pdf-btn:hover { background: #6d28d9; }
+
+  /* ── Summary ── */
+  .summary-member { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .summary-member:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .summary-name { font-size: 14px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .blocker-flag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--red-light); color: var(--red); font-family: 'DM Mono', monospace; }
+  .summary-q { display: flex; gap: 8px; margin-bottom: 6px; }
+  .sq-tag { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .sq-tag.y { background: var(--accent-light); color: var(--accent); }
+  .sq-tag.t { background: var(--green-light); color: var(--green); }
+  .sq-tag.b { background: var(--red-light); color: var(--red); }
+  .sq-text { font-size: 13px; line-height: 1.5; }
+
+  /* ── Done banner ── */
+  .done-banner { text-align: center; padding: 28px 20px; background: var(--green-light); border: 1.5px solid #bbf7d0; border-radius: 14px; margin-bottom: 16px; }
+  .done-icon { font-size: 36px; margin-bottom: 8px; }
+  .done-title { font-size: 18px; font-weight: 600; color: var(--green); }
+  .done-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* ── Setup screen special ── */
+  .setup-icon { font-size: 40px; text-align: center; margin-bottom: 12px; }
+  .setup-welcome { font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px; }
+  .setup-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 24px; }
+
+  .feature-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .feature-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+  .feature-icon { font-size: 16px; width: 24px; text-align: center; }
+
+  /* ── Toast ── */
+  .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a1916; color: #e8e6e0; padding: 10px 20px; border-radius: 20px; font-size: 13px; transition: transform 0.3s; pointer-events: none; white-space: nowrap; z-index: 999; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── Steps ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── Blocker badge ── */
+  .blocker-count { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 6px 12px; border-radius: 8px; background: var(--red-light); color: var(--red); font-weight: 500; margin-bottom: 12px; }
+
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+  .info-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 10px; border-radius: 20px; background: var(--accent-light); color: var(--accent); margin-bottom: 16px; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="content-wrap">
+
+    <div class="header">
+      <div class="header-top">
+        <div class="app-name">🗂 Scrum Report Tool</div>
+        <div class="date-badge" id="date-badge"></div>
+      </div>
+      <div class="header-sub" id="header-sub">Daily standup collector &amp; PDF generator</div>
+    </div>
+
+    <!-- Progress -->
+    <div class="step-progress" id="step-progress" style="display:none">
+      <div class="step-progress-label"><span id="step-label">Step 1</span><span id="step-frac"></span></div>
+      <div class="step-bar"><div class="step-bar-fill" id="step-fill" style="width:0%"></div></div>
+    </div>
+    <div class="dots-row" id="dots-row" style="display:none"></div>
+
+    <!-- ════════ PAGE 0: SETUP ════════ -->
+    <div class="page active" id="page-setup">
+      <div class="card">
+        <div class="setup-icon">👋</div>
+        <div class="setup-welcome">Welcome, Scrum Master!</div>
+        <div class="setup-sub">Set up your team before starting the daily standup.</div>
+
+        <div class="feature-list">
+          <div class="feature-item"><span class="feature-icon">👥</span> Collect answers from your whole team</div>
+          <div class="feature-item"><span class="feature-icon">⚠️</span> Auto-detects and highlights blockers</div>
+          <div class="feature-item"><span class="feature-icon">📄</span> Generates a downloadable PDF report</div>
+          <div class="feature-item"><span class="feature-icon">💾</span> Saves your team setup for next time</div>
+        </div>
+
+        <div class="field">
+          <label>Your name (Scrum Master)</label>
+          <input type="text" id="setup-sm-name" placeholder="e.g. Neeharika" />
+        </div>
+        <div class="field">
+          <label>Team / Project name</label>
+          <input type="text" id="setup-team-name" placeholder="e.g. Team Alpha / Project Phoenix" />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label>Number of team members</label>
+            <select id="setup-member-count">
+              <option value="">Select…</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5" selected>5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Sprint number (optional)</label>
+            <input type="text" id="setup-sprint" placeholder="e.g. Sprint 3" />
+          </div>
+        </div>
+
+        <div class="nav-row">
+          <button class="btn primary" onclick="startSetup()">Set up team members →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ PAGE 1: MEMBER NAMES ════════ -->
+    <div class="page" id="page-names">
+      <div class="card">
+        <div class="card-title">👥 Enter team member names</div>
+        <div class="card-sub">You can pre-fill names so you don't have to type them every day.</div>
+        <div id="names-fields"></div>
+        <div class="nav-row">
+          <button class="btn" onclick="showPage('page-setup', -1)">← Back</button>
+          <button class="btn primary" onclick="startStandup()">Start standup →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════ PAGES 2…N: MEMBER FORMS ════════ -->
+    <div id="member-pages"></div>
+
+    <!-- ════════ FINAL PAGE: SUMMARY + PDF ════════ -->
+    <div class="page" id="page-summary">
+      <div class="done-banner">
+        <div class="done-icon">✅</div>
+        <div class="done-title">All members done!</div>
+        <div class="done-sub">Review the report below, then download as PDF.</div>
+      </div>
+
+      <div class="card" id="summary-card">
+        <div class="card-title" id="summary-title">📋 Daily Scrum Report</div>
+        <div class="info-chip" id="summary-meta"></div>
+        <div id="blocker-summary"></div>
+        <div id="summary-members"></div>
+      </div>
+
+      <button class="btn pdf-btn" id="pdf-btn" onclick="generatePDF()" style="width:100%;margin-bottom:10px">
+        ⬇️ Download PDF Report
+      </button>
+
+      <div class="nav-row">
+        <button class="btn" id="back-to-last" onclick="backToLast()">← Edit last member</button>
+        <button class="btn success" onclick="newDay()">🔄 New day</button>
+      </div>
+    </div>
+
+  </div><!-- /content-wrap -->
+</div><!-- /shell -->
+
+<div class="toast" id="toast"></div>
+
+<!-- jsPDF from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+let config = { smName: '', teamName: '', memberCount: 5, sprint: '' };
+let members = [];
+let currentMemberIdx = 0;
+
+// ── Date display ──
+const NOW = new Date();
+document.getElementById('date-badge').textContent =
+  NOW.toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+
+// ── Load saved config ──
+function loadSaved() {
+  try {
+    const c = JSON.parse(localStorage.getItem('scrum_config') || 'null');
+    if (c) {
+      config = c;
+      document.getElementById('setup-sm-name').value = c.smName || '';
+      document.getElementById('setup-team-name').value = c.teamName || '';
+      document.getElementById('setup-member-count').value = c.memberCount || 5;
+      document.getElementById('setup-sprint').value = c.sprint || '';
+    }
+  } catch {}
+}
+loadSaved();
+
+// ── Page navigation ──
+function showPage(id, stepIdx) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  updateProgress(stepIdx);
+  window.scrollTo(0, 0);
+}
+
+function updateProgress(stepIdx) {
+  const prog = document.getElementById('step-progress');
+  const dotsRow = document.getElementById('dots-row');
+  if (stepIdx < 0) { prog.style.display = 'none'; dotsRow.style.display = 'none'; return; }
+  prog.style.display = 'block';
+  const total = config.memberCount + 2;
+  const pct = Math.round((stepIdx / (total - 1)) * 100);
+  document.getElementById('step-fill').style.width = pct + '%';
+  document.getElementById('step-label').textContent = stepIdx === 0 ? 'Team names' : stepIdx <= config.memberCount ? `Member ${stepIdx} of ${config.memberCount}` : 'Report';
+  document.getElementById('step-frac').textContent = `${stepIdx + 1} / ${total}`;
+
+  dotsRow.style.display = 'flex';
+  dotsRow.innerHTML = '';
+  const totalDots = config.memberCount + 2;
+  for (let i = 0; i < totalDots; i++) {
+    if (i > 0) { const l = document.createElement('div'); l.className = 'dot-line'; dotsRow.appendChild(l); }
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === stepIdx ? ' active' : i < stepIdx ? ' done' : '');
+    d.textContent = i === 0 ? '👥' : i <= config.memberCount ? i : '📄';
+    d.style.fontSize = (i === 0 || i > config.memberCount) ? '14px' : '11px';
+    dotsRow.appendChild(d);
+  }
+}
+
+// ── SETUP PAGE ──
+function startSetup() {
+  const smName = document.getElementById('setup-sm-name').value.trim();
+  const teamName = document.getElementById('setup-team-name').value.trim();
+  const count = parseInt(document.getElementById('setup-member-count').value);
+  const sprint = document.getElementById('setup-sprint').value.trim();
+  if (!smName) { showToast('Please enter your name as Scrum Master'); return; }
+  if (!count) { showToast('Please select number of team members'); return; }
+  config = { smName, teamName, memberCount: count, sprint };
+  localStorage.setItem('scrum_config', JSON.stringify(config));
+  members = Array.from({length: count}, () => ({ name: '', yesterday: '', today: '', blocker: '' }));
+  buildNamesPage();
+  showPage('page-names', 0);
+}
+
+// ── NAMES PAGE ──
+function buildNamesPage() {
+  const c = document.getElementById('names-fields');
+  c.innerHTML = '';
+  try {
+    const saved = JSON.parse(localStorage.getItem('scrum_names') || '[]');
+    if (saved.length === config.memberCount) saved.forEach((n, i) => { if (members[i]) members[i].name = n; });
+  } catch {}
+
+  for (let i = 0; i < config.memberCount; i++) {
+    const div = document.createElement('div');
+    div.className = 'field';
+    div.innerHTML = `<label>Member ${i+1} name</label>
+      <input type="text" id="mname-${i}" placeholder="e.g. Ravi, Priya…" value="${members[i].name}" oninput="members[${i}].name=this.value.trim()">`;
+    c.appendChild(div);
+  }
+}
+
+function startStandup() {
+  const names = Array.from({length: config.memberCount}, (_, i) => {
+    const v = document.getElementById(`mname-${i}`).value.trim();
+    members[i].name = v || `Member ${i+1}`;
+    return members[i].name;
+  });
+  localStorage.setItem('scrum_names', JSON.stringify(names));
+  buildMemberPages();
+  currentMemberIdx = 0;
+  showMemberPage(0);
+}
+
+// ── MEMBER PAGES ──
+function buildMemberPages() {
+  const container = document.getElementById('member-pages');
+  container.innerHTML = '';
+  for (let i = 0; i < config.memberCount; i++) {
+    const div = document.createElement('div');
+    div.className = 'page';
+    div.id = `page-member-${i}`;
+    div.innerHTML = `
+      <div class="card">
+        <div class="member-header">
+          <div class="avatar">${i+1}</div>
+          <div>
+            <div class="member-name-display" id="mname-display-${i}">${members[i].name || 'Member '+(i+1)}</div>
+            <div class="member-name-sub">Member ${i+1} of ${config.memberCount}</div>
+          </div>
+        </div>
+
+        <div class="q-label"><div class="qdot y"></div>What did you do yesterday?</div>
+        <textarea id="y-${i}" rows="3" placeholder="Tasks completed since last standup…" oninput="members[${i}].yesterday=this.value">${members[i].yesterday}</textarea>
+
+        <div class="q-label"><div class="qdot t"></div>What will you do today?</div>
+        <textarea id="t-${i}" rows="3" placeholder="Tasks planned for today…" oninput="members[${i}].today=this.value">${members[i].today}</textarea>
+
+        <div class="q-label"><div class="qdot b"></div>Any blockers or impediments?</div>
+        <textarea id="b-${i}" rows="2" placeholder="Type 'None' if no blockers…" oninput="members[${i}].blocker=this.value">${members[i].blocker}</textarea>
+      </div>
+      <div class="nav-row">
+        <button class="btn" onclick="showMemberPage(${i-1})">${i === 0 ? '← Back to names' : '← Back'}</button>
+        <button class="btn primary" onclick="nextMember(${i})">${i < config.memberCount-1 ? 'Next member →' : 'Generate report →'}</button>
+      </div>
+    `;
+    container.appendChild(div);
+  }
+}
+
+function showMemberPage(idx) {
+  if (idx < 0) { showPage('page-names', 0); return; }
+  currentMemberIdx = idx;
+  showPage(`page-member-${idx}`, idx + 1);
+}
+
+function nextMember(i) {
+  members[i].yesterday = document.getElementById(`y-${i}`).value.trim();
+  members[i].today     = document.getElementById(`t-${i}`).value.trim();
+  members[i].blocker   = document.getElementById(`b-${i}`).value.trim();
+  if (!members[i].yesterday || !members[i].today) {
+    showToast('Please fill in at least Yesterday and Today fields');
+    return;
+  }
+  if (!members[i].blocker) members[i].blocker = 'None';
+  if (i < config.memberCount - 1) {
+    showMemberPage(i + 1);
+  } else {
+    buildSummary();
+    showPage('page-summary', config.memberCount + 1);
+  }
+}
+
+function backToLast() {
+  showMemberPage(config.memberCount - 1);
+}
+
+// ── SUMMARY ──
+function hasBlocker(m) {
+  return m.blocker && m.blocker.trim().toLowerCase() !== 'none' && m.blocker.trim() !== '';
+}
+
+function buildSummary() {
+  const dateStr = NOW.toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
+  document.getElementById('summary-title').textContent = '📋 ' + (config.teamName || 'Team') + ' — Daily Scrum';
+  document.getElementById('summary-meta').textContent = `${dateStr}${config.sprint ? ' · ' + config.sprint : ''} · SM: ${config.smName}`;
+
+  const blockers = members.filter(hasBlocker);
+  const bs = document.getElementById('blocker-summary');
+  if (blockers.length > 0) {
+    bs.innerHTML = `<div class="blocker-count">⚠️ ${blockers.length} blocker${blockers.length>1?'s':''}: ${blockers.map(m=>m.name).join(', ')}</div>`;
+  } else {
+    bs.innerHTML = `<div style="font-size:13px;color:var(--green);margin-bottom:12px">✅ No blockers today!</div>`;
+  }
+
+  const mc = document.getElementById('summary-members');
+  mc.innerHTML = '';
+  members.forEach((m, i) => {
+    const div = document.createElement('div');
+    div.className = 'summary-member';
+    const hb = hasBlocker(m);
+    div.innerHTML = `
+      <div class="summary-name">${m.name || 'Member '+(i+1)} ${hb ? '<span class="blocker-flag">⚠ Blocker</span>' : ''}</div>
+      <div class="summary-q"><span class="sq-tag y">YESTERDAY</span><span class="sq-text">${m.yesterday || '—'}</span></div>
+      <div class="summary-q"><span class="sq-tag t">TODAY</span><span class="sq-text">${m.today || '—'}</span></div>
+      <div class="summary-q"><span class="sq-tag b">BLOCKER</span><span class="sq-text">${m.blocker || 'None'}</span></div>
+    `;
+    mc.appendChild(div);
+  });
+
+  document.getElementById('back-to-last').textContent = `← Edit ${members[config.memberCount-1].name || 'last member'}`;
+}
+
+// ── PDF GENERATION ──
+// Matches the format you specified:
+// ━━ header ━━ / meta / blockers section / numbered members / footer
+function generatePDF() {
+  const btn = document.getElementById('pdf-btn');
+  btn.textContent = '⏳ Generating PDF…';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    try {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+      const W = 210, margin = 16, cW = W - margin * 2;
+      let y = 18;
+
+      const dateStr = NOW.toLocaleDateString('en-IN', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+      });
+      const blockers = members.filter(hasBlocker);
+
+      // ── Helpers ──
+      function checkY(needed) {
+        if (y + needed > 275) {
+          doc.addPage();
+          y = 18;
+        }
+      }
+
+      function hRule(thick) {
+        doc.setDrawColor(thick ? 50 : 180, thick ? 50 : 180, thick ? 50 : 170);
+        doc.setLineWidth(thick ? 0.6 : 0.3);
+        doc.line(margin, y, W - margin, y);
+        y += 4;
+      }
+
+      function label(text, color) {
+        doc.setFontSize(8);
+        doc.setFont('courier', 'bold');
+        doc.setTextColor(...color);
+        doc.text(text, margin, y);
+        y += 5;
+      }
+
+      function body(text, color) {
+        doc.setFontSize(10);
+        doc.setFont('courier', 'normal');
+        doc.setTextColor(...color);
+        const lines = doc.splitTextToSize(text || '—', cW - 2);
+        lines.forEach(line => {
+          checkY(6);
+          doc.text(line, margin + 2, y);
+          y += 5.5;
+        });
+      }
+
+      // ══ TOP THICK RULE ══
+      doc.setFillColor(30, 30, 30);
+      doc.rect(margin, y, cW, 1.2, 'F');
+      y += 5;
+
+      // Title
+      doc.setFontSize(16);
+      doc.setFont('courier', 'bold');
+      doc.setTextColor(20, 20, 20);
+      doc.text('DAILY SCRUM REPORT', W / 2, y, { align: 'center' });
+      y += 8;
+
+      // ══ BOTTOM THICK RULE ══
+      doc.setFillColor(30, 30, 30);
+      doc.rect(margin, y, cW, 1.2, 'F');
+      y += 7;
+
+      // ── Meta block ──
+      doc.setFontSize(10);
+      doc.setFont('courier', 'normal');
+      doc.setTextColor(40, 40, 40);
+
+      const teamLine = (config.teamName || 'Team') + (config.sprint ? '  •  ' + config.sprint : '');
+      doc.text(teamLine, W / 2, y, { align: 'center' });
+      y += 6;
+      doc.text(dateStr, W / 2, y, { align: 'center' });
+      y += 6;
+
+      doc.setFont('courier', 'bold');
+      doc.text('Scrum Master :', margin, y);
+      doc.setFont('courier', 'normal');
+      doc.text(config.smName, margin + 38, y);
+      y += 5.5;
+
+      doc.setFont('courier', 'bold');
+      doc.text('Team Size    :', margin, y);
+      doc.setFont('courier', 'normal');
+      doc.text(`${config.memberCount} Members`, margin + 38, y);
+      y += 5.5;
+
+      doc.setFont('courier', 'bold');
+      doc.text('Blockers     :', margin, y);
+      doc.setFont('courier', 'normal');
+      doc.setTextColor(blockers.length > 0 ? 200 : 22, blockers.length > 0 ? 30 : 120, blockers.length > 0 ? 30 : 60);
+      doc.text(`${blockers.length}`, margin + 38, y);
+      y += 7;
+
+      // ── Thin rule ──
+      hRule(false);
+
+      // ── Blockers section ──
+      if (blockers.length > 0) {
+        doc.setFontSize(10);
+        doc.setFont('courier', 'bold');
+        doc.setTextColor(180, 30, 30);
+        doc.text('⚠  BLOCKERS REQUIRING ATTENTION', margin, y);
+        y += 6;
+        blockers.forEach(m => {
+          doc.setFont('courier', 'normal');
+          doc.setTextColor(140, 20, 20);
+          doc.setFontSize(9.5);
+          const lines = doc.splitTextToSize(`• ${m.name} — ${m.blocker}`, cW - 4);
+          lines.forEach(line => {
+            checkY(6);
+            doc.text(line, margin + 2, y);
+            y += 5.5;
+          });
+        });
+        y += 2;
+        hRule(false);
+      }
+
+      // ── Each member ──
+      const circledNums = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
+
+      members.forEach((m, i) => {
+        checkY(40);
+
+        // Member name line
+        doc.setFontSize(12);
+        doc.setFont('courier', 'bold');
+        doc.setTextColor(20, 20, 20);
+        const num = circledNums[i] || `${i+1}.`;
+        doc.text(`${num}  ${m.name || 'Member '+(i+1)}`, margin, y);
+
+        if (hasBlocker(m)) {
+          doc.setFontSize(8);
+          doc.setFont('courier', 'bold');
+          doc.setTextColor(200, 30, 30);
+          doc.text('⚠ BLOCKER', W - margin, y, { align: 'right' });
+        }
+        y += 7;
+
+        // YESTERDAY
+        label('YESTERDAY', [37, 99, 235]);
+        body(m.yesterday, [50, 50, 50]);
+        y += 1;
+
+        // TODAY
+        checkY(14);
+        label('TODAY', [22, 120, 60]);
+        body(m.today, [50, 50, 50]);
+        y += 1;
+
+        // BLOCKER
+        checkY(14);
+        label('BLOCKER', hasBlocker(m) ? [200, 30, 30] : [120, 120, 110]);
+        body(m.blocker || 'None', hasBlocker(m) ? [160, 20, 20] : [100, 100, 90]);
+
+        y += 3;
+        hRule(false);
+      });
+
+      // ── Footer ──
+      checkY(18);
+      doc.setFontSize(9);
+      doc.setFont('courier', 'normal');
+      doc.setTextColor(80, 80, 75);
+      doc.text(`Reported by: ${config.smName}`, margin, y);
+      y += 5;
+      doc.setTextColor(140, 140, 130);
+      doc.text(`${dateStr}${config.sprint ? '  ·  ' + config.sprint : ''}`, margin, y);
+      y += 5;
+      doc.text(`Generated by Scrum Report Tool  ·  Members: ${config.memberCount}  ·  Blockers: ${blockers.length}`, margin, y);
+      y += 4;
+
+      // Final thick rule
+      doc.setFillColor(30, 30, 30);
+      doc.rect(margin, y, cW, 1.2, 'F');
+
+      // ── DOWNLOAD — force a real file save ──
+      const dateTag = NOW.toISOString().slice(0, 10);
+      const teamTag = config.teamName ? '_' + config.teamName.replace(/\s+/g, '_') : '';
+      const filename = `Scrum_Report_${dateTag}${teamTag}.pdf`;
+
+      // Use output('blob') then create an object URL — works reliably across browsers
+      const blob = doc.output('blob');
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 3000);
+
+      showToast('✅ PDF downloaded to your system!');
+    } catch(e) {
+      console.error(e);
+      showToast('Error generating PDF — check console.');
+    }
+    btn.textContent = '⬇️ Download PDF Report';
+    btn.disabled = false;
+  }, 120);
+}
+
+// ── NEW DAY ──
+function newDay() {
+  if (!confirm('Start a new day? Member names will be kept.')) return;
+  members.forEach(m => { m.yesterday = ''; m.today = ''; m.blocker = ''; });
+  buildMemberPages();
+  showMemberPage(0);
+}
+
+// ── TOAST ──
+let toastTimer;
+function showToast(msg, dur = 2400) {
+  clearTimeout(toastTimer);
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  toastTimer = setTimeout(() => t.classList.remove('show'), dur);
+}
+</script>
+</body>
+</html>
