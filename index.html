@@ -25,23 +25,14 @@
     --purple-light: #f5f3ff;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html, body {
-    width: 100%;
-    height: 100%;
-  }
-
+  html, body { width: 100%; height: 100%; }
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
     width: 100%;
-    padding: 0;
-    margin: 0;
   }
-
-  /* Full-width outer shell */
   .shell {
     width: 100%;
     min-height: 100vh;
@@ -50,16 +41,12 @@
     align-items: center;
     background: var(--bg);
   }
-
-  /* Content constrained for readability, but background stretches full */
   .content-wrap {
     width: 100%;
     max-width: 640px;
     padding: 28px 20px 80px;
     flex: 1;
   }
-
-  /* ── Header ── */
   .header { margin-bottom: 28px; }
   .header-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
   .app-name { font-size: 20px; font-weight: 600; }
@@ -69,14 +56,10 @@
     padding: 4px 10px; border-radius: 20px; color: var(--muted);
   }
   .header-sub { font-size: 13px; color: var(--muted); }
-
-  /* ── Progress bar ── */
   .step-progress { margin-bottom: 24px; }
   .step-progress-label { font-size: 12px; color: var(--muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
   .step-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
   .step-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--accent), var(--purple)); transition: width 0.4s ease; }
-
-  /* ── Dots row ── */
   .dots-row { display: flex; gap: 5px; margin-bottom: 24px; align-items: center; flex-wrap: wrap; }
   .dot {
     width: 30px; height: 30px; border-radius: 50%;
@@ -89,8 +72,6 @@
   .dot.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
   .dot.done   { background: var(--green); border-color: var(--green); color: #fff; }
   .dot-line { flex: 1; min-width: 8px; height: 1.5px; background: var(--border); }
-
-  /* ── Cards ── */
   .card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 16px; padding: 20px; margin-bottom: 16px;
@@ -98,8 +79,6 @@
   }
   .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
   .card-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-
-  /* ── Form fields ── */
   .field { margin-bottom: 16px; }
   .field label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; font-family: 'DM Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; }
   input[type=text], input[type=number], select, textarea {
@@ -114,11 +93,8 @@
   textarea { resize: none; line-height: 1.5; }
   ::placeholder { color: #bbb; }
   select { cursor: pointer; }
-
   .field-row { display: flex; gap: 12px; }
   .field-row .field { flex: 1; }
-
-  /* ── Member header ── */
   .member-header { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
   .avatar {
     width: 40px; height: 40px; border-radius: 12px;
@@ -129,7 +105,6 @@
   }
   .member-name-display { font-size: 15px; font-weight: 600; }
   .member-name-sub { font-size: 12px; color: var(--muted); }
-
   .q-label {
     font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--muted); font-family: 'DM Mono', monospace;
@@ -140,8 +115,6 @@
   .qdot.y { background: var(--accent); }
   .qdot.t { background: var(--green); }
   .qdot.b { background: var(--red); }
-
-  /* ── Buttons ── */
   .nav-row { display: flex; gap: 10px; margin-top: 16px; }
   .btn {
     flex: 1; padding: 12px; border-radius: 10px;
@@ -157,8 +130,6 @@
   .btn.danger  { background: var(--red); border-color: var(--red); color: #fff; }
   .btn.pdf-btn { background: #7c3aed; border-color: #7c3aed; color: #fff; font-size: 15px; padding: 14px; }
   .btn.pdf-btn:hover { background: #6d28d9; }
-
-  /* ── Summary ── */
   .summary-member { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
   .summary-member:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
   .summary-name { font-size: 14px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
@@ -169,35 +140,22 @@
   .sq-tag.t { background: var(--green-light); color: var(--green); }
   .sq-tag.b { background: var(--red-light); color: var(--red); }
   .sq-text { font-size: 13px; line-height: 1.5; }
-
-  /* ── Done banner ── */
   .done-banner { text-align: center; padding: 28px 20px; background: var(--green-light); border: 1.5px solid #bbf7d0; border-radius: 14px; margin-bottom: 16px; }
   .done-icon { font-size: 36px; margin-bottom: 8px; }
   .done-title { font-size: 18px; font-weight: 600; color: var(--green); }
   .done-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
-
-  /* ── Setup screen special ── */
   .setup-icon { font-size: 40px; text-align: center; margin-bottom: 12px; }
   .setup-welcome { font-size: 18px; font-weight: 600; text-align: center; margin-bottom: 4px; }
   .setup-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 24px; }
-
   .feature-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
   .feature-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
   .feature-icon { font-size: 16px; width: 24px; text-align: center; }
-
-  /* ── Toast ── */
   .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: #1a1916; color: #e8e6e0; padding: 10px 20px; border-radius: 20px; font-size: 13px; transition: transform 0.3s; pointer-events: none; white-space: nowrap; z-index: 999; }
   .toast.show { transform: translateX(-50%) translateY(0); }
-
-  /* ── Steps ── */
   .page { display: none; }
   .page.active { display: block; }
-
-  /* ── Blocker badge ── */
   .blocker-count { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 6px 12px; border-radius: 8px; background: var(--red-light); color: var(--red); font-weight: 500; margin-bottom: 12px; }
-
   .divider { height: 1px; background: var(--border); margin: 20px 0; }
-
   .info-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 10px; border-radius: 20px; background: var(--accent-light); color: var(--accent); margin-bottom: 16px; font-weight: 500; }
 </style>
 </head>
@@ -214,27 +172,24 @@
       <div class="header-sub" id="header-sub">Daily standup collector &amp; PDF generator</div>
     </div>
 
-    <!-- Progress -->
     <div class="step-progress" id="step-progress" style="display:none">
       <div class="step-progress-label"><span id="step-label">Step 1</span><span id="step-frac"></span></div>
       <div class="step-bar"><div class="step-bar-fill" id="step-fill" style="width:0%"></div></div>
     </div>
     <div class="dots-row" id="dots-row" style="display:none"></div>
 
-    <!-- ════════ PAGE 0: SETUP ════════ -->
+    <!-- PAGE 0: SETUP -->
     <div class="page active" id="page-setup">
       <div class="card">
         <div class="setup-icon">👋</div>
         <div class="setup-welcome">Welcome, Scrum Master!</div>
         <div class="setup-sub">Set up your team before starting the daily standup.</div>
-
         <div class="feature-list">
           <div class="feature-item"><span class="feature-icon">👥</span> Collect answers from your whole team</div>
           <div class="feature-item"><span class="feature-icon">⚠️</span> Auto-detects and highlights blockers</div>
           <div class="feature-item"><span class="feature-icon">📄</span> Generates a downloadable PDF report</div>
           <div class="feature-item"><span class="feature-icon">💾</span> Saves your team setup for next time</div>
         </div>
-
         <div class="field">
           <label>Your name (Scrum Master)</label>
           <input type="text" id="setup-sm-name" placeholder="e.g. Neeharika" />
@@ -264,14 +219,13 @@
             <input type="text" id="setup-sprint" placeholder="e.g. Sprint 3" />
           </div>
         </div>
-
         <div class="nav-row">
           <button class="btn primary" onclick="startSetup()">Set up team members →</button>
         </div>
       </div>
     </div>
 
-    <!-- ════════ PAGE 1: MEMBER NAMES ════════ -->
+    <!-- PAGE 1: MEMBER NAMES -->
     <div class="page" id="page-names">
       <div class="card">
         <div class="card-title">👥 Enter team member names</div>
@@ -284,40 +238,36 @@
       </div>
     </div>
 
-    <!-- ════════ PAGES 2…N: MEMBER FORMS ════════ -->
+    <!-- MEMBER PAGES -->
     <div id="member-pages"></div>
 
-    <!-- ════════ FINAL PAGE: SUMMARY + PDF ════════ -->
+    <!-- FINAL PAGE: SUMMARY + PDF -->
     <div class="page" id="page-summary">
       <div class="done-banner">
         <div class="done-icon">✅</div>
         <div class="done-title">All members done!</div>
         <div class="done-sub">Review the report below, then download as PDF.</div>
       </div>
-
       <div class="card" id="summary-card">
         <div class="card-title" id="summary-title">📋 Daily Scrum Report</div>
         <div class="info-chip" id="summary-meta"></div>
         <div id="blocker-summary"></div>
         <div id="summary-members"></div>
       </div>
-
       <button class="btn pdf-btn" id="pdf-btn" onclick="generatePDF()" style="width:100%;margin-bottom:10px">
         ⬇️ Download PDF Report
       </button>
-
       <div class="nav-row">
         <button class="btn" id="back-to-last" onclick="backToLast()">← Edit last member</button>
         <button class="btn success" onclick="newDay()">🔄 New day</button>
       </div>
     </div>
 
-  </div><!-- /content-wrap -->
-</div><!-- /shell -->
+  </div>
+</div>
 
 <div class="toast" id="toast"></div>
 
-<!-- jsPDF from CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
@@ -325,12 +275,10 @@ let config = { smName: '', teamName: '', memberCount: 5, sprint: '' };
 let members = [];
 let currentMemberIdx = 0;
 
-// ── Date display ──
 const NOW = new Date();
 document.getElementById('date-badge').textContent =
   NOW.toLocaleDateString('en-IN', { weekday:'short', day:'numeric', month:'short', year:'numeric' });
 
-// ── Load saved config ──
 function loadSaved() {
   try {
     const c = JSON.parse(localStorage.getItem('scrum_config') || 'null');
@@ -345,7 +293,6 @@ function loadSaved() {
 }
 loadSaved();
 
-// ── Page navigation ──
 function showPage(id, stepIdx) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -363,7 +310,6 @@ function updateProgress(stepIdx) {
   document.getElementById('step-fill').style.width = pct + '%';
   document.getElementById('step-label').textContent = stepIdx === 0 ? 'Team names' : stepIdx <= config.memberCount ? `Member ${stepIdx} of ${config.memberCount}` : 'Report';
   document.getElementById('step-frac').textContent = `${stepIdx + 1} / ${total}`;
-
   dotsRow.style.display = 'flex';
   dotsRow.innerHTML = '';
   const totalDots = config.memberCount + 2;
@@ -377,7 +323,6 @@ function updateProgress(stepIdx) {
   }
 }
 
-// ── SETUP PAGE ──
 function startSetup() {
   const smName = document.getElementById('setup-sm-name').value.trim();
   const teamName = document.getElementById('setup-team-name').value.trim();
@@ -392,7 +337,6 @@ function startSetup() {
   showPage('page-names', 0);
 }
 
-// ── NAMES PAGE ──
 function buildNamesPage() {
   const c = document.getElementById('names-fields');
   c.innerHTML = '';
@@ -400,7 +344,6 @@ function buildNamesPage() {
     const saved = JSON.parse(localStorage.getItem('scrum_names') || '[]');
     if (saved.length === config.memberCount) saved.forEach((n, i) => { if (members[i]) members[i].name = n; });
   } catch {}
-
   for (let i = 0; i < config.memberCount; i++) {
     const div = document.createElement('div');
     div.className = 'field';
@@ -422,7 +365,6 @@ function startStandup() {
   showMemberPage(0);
 }
 
-// ── MEMBER PAGES ──
 function buildMemberPages() {
   const container = document.getElementById('member-pages');
   container.innerHTML = '';
@@ -439,13 +381,10 @@ function buildMemberPages() {
             <div class="member-name-sub">Member ${i+1} of ${config.memberCount}</div>
           </div>
         </div>
-
         <div class="q-label"><div class="qdot y"></div>What did you do yesterday?</div>
         <textarea id="y-${i}" rows="3" placeholder="Tasks completed since last standup…" oninput="members[${i}].yesterday=this.value">${members[i].yesterday}</textarea>
-
         <div class="q-label"><div class="qdot t"></div>What will you do today?</div>
         <textarea id="t-${i}" rows="3" placeholder="Tasks planned for today…" oninput="members[${i}].today=this.value">${members[i].today}</textarea>
-
         <div class="q-label"><div class="qdot b"></div>Any blockers or impediments?</div>
         <textarea id="b-${i}" rows="2" placeholder="Type 'None' if no blockers…" oninput="members[${i}].blocker=this.value">${members[i].blocker}</textarea>
       </div>
@@ -485,7 +424,6 @@ function backToLast() {
   showMemberPage(config.memberCount - 1);
 }
 
-// ── SUMMARY ──
 function hasBlocker(m) {
   return m.blocker && m.blocker.trim().toLowerCase() !== 'none' && m.blocker.trim() !== '';
 }
@@ -494,7 +432,6 @@ function buildSummary() {
   const dateStr = NOW.toLocaleDateString('en-IN', { weekday:'long', day:'numeric', month:'long', year:'numeric' });
   document.getElementById('summary-title').textContent = '📋 ' + (config.teamName || 'Team') + ' — Daily Scrum';
   document.getElementById('summary-meta').textContent = `${dateStr}${config.sprint ? ' · ' + config.sprint : ''} · SM: ${config.smName}`;
-
   const blockers = members.filter(hasBlocker);
   const bs = document.getElementById('blocker-summary');
   if (blockers.length > 0) {
@@ -502,7 +439,6 @@ function buildSummary() {
   } else {
     bs.innerHTML = `<div style="font-size:13px;color:var(--green);margin-bottom:12px">✅ No blockers today!</div>`;
   }
-
   const mc = document.getElementById('summary-members');
   mc.innerHTML = '';
   members.forEach((m, i) => {
@@ -517,13 +453,12 @@ function buildSummary() {
     `;
     mc.appendChild(div);
   });
-
   document.getElementById('back-to-last').textContent = `← Edit ${members[config.memberCount-1].name || 'last member'}`;
 }
 
-// ── PDF GENERATION ──
-// Matches the format you specified:
-// ━━ header ━━ / meta / blockers section / numbered members / footer
+// ══════════════════════════════════════════════
+//  PDF GENERATION — Matches the image format
+// ══════════════════════════════════════════════
 function generatePDF() {
   const btn = document.getElementById('pdf-btn');
   btn.textContent = '⏳ Generating PDF…';
@@ -534,185 +469,236 @@ function generatePDF() {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
-      const W = 210, margin = 16, cW = W - margin * 2;
-      let y = 18;
+      const W = 210, margin = 14, cW = W - margin * 2;
+      let y = 14;
 
       const dateStr = NOW.toLocaleDateString('en-IN', {
         weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
       });
+      const shortDate = NOW.toLocaleDateString('en-IN', {
+        weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+      });
       const blockers = members.filter(hasBlocker);
 
-      // ── Helpers ──
+      // Avatar color palette (matches image circles)
+      const avatarColors = [
+        [111, 66, 193],  // purple
+        [37,  99, 235],  // blue
+        [20, 150, 100],  // teal
+        [234, 88,  12],  // orange
+        [220, 38,  38],  // red
+        [161, 40, 170],  // violet
+        [16, 120,  60],  // green
+        [202, 138,   4],  // amber
+        [59, 130, 246],  // sky
+        [107, 114, 128],  // gray
+      ];
+
+      // Column header bg colors
+      const colColors = {
+        y: [239, 246, 255], // blue-tinted
+        t: [240, 255, 244], // green-tinted
+        b: [255, 242, 242], // red-tinted
+      };
+      const colLabelColors = {
+        y: [37, 99, 235],
+        t: [22, 163, 74],
+        b: [220, 38, 38],
+      };
+
       function checkY(needed) {
-        if (y + needed > 275) {
-          doc.addPage();
-          y = 18;
-        }
+        if (y + needed > 283) { doc.addPage(); y = 14; }
       }
 
-      function hRule(thick) {
-        doc.setDrawColor(thick ? 50 : 180, thick ? 50 : 180, thick ? 50 : 170);
-        doc.setLineWidth(thick ? 0.6 : 0.3);
-        doc.line(margin, y, W - margin, y);
-        y += 4;
-      }
+      // ── HEADER BAND ──────────────────────────────────
+      // White background full-width header
+      doc.setFillColor(255, 255, 255);
+      doc.rect(0, 0, W, 38, 'F');
 
-      function label(text, color) {
-        doc.setFontSize(8);
-        doc.setFont('courier', 'bold');
-        doc.setTextColor(...color);
-        doc.text(text, margin, y);
-        y += 5;
-      }
-
-      function body(text, color) {
-        doc.setFontSize(10);
-        doc.setFont('courier', 'normal');
-        doc.setTextColor(...color);
-        const lines = doc.splitTextToSize(text || '—', cW - 2);
-        lines.forEach(line => {
-          checkY(6);
-          doc.text(line, margin + 2, y);
-          y += 5.5;
-        });
-      }
-
-      // ══ TOP THICK RULE ══
-      doc.setFillColor(30, 30, 30);
-      doc.rect(margin, y, cW, 1.2, 'F');
-      y += 5;
-
-      // Title
-      doc.setFontSize(16);
-      doc.setFont('courier', 'bold');
-      doc.setTextColor(20, 20, 20);
-      doc.text('DAILY SCRUM REPORT', W / 2, y, { align: 'center' });
-      y += 8;
-
-      // ══ BOTTOM THICK RULE ══
-      doc.setFillColor(30, 30, 30);
-      doc.rect(margin, y, cW, 1.2, 'F');
-      y += 7;
-
-      // ── Meta block ──
+      // Clipboard icon area (left side colored block)
+      doc.setFillColor(111, 66, 193);
+      doc.roundedRect(margin, y, 18, 18, 2, 2, 'F');
       doc.setFontSize(10);
-      doc.setFont('courier', 'normal');
-      doc.setTextColor(40, 40, 40);
+      doc.setTextColor(255, 255, 255);
+      doc.text('📋', margin + 9, y + 12, { align: 'center' });
 
-      const teamLine = (config.teamName || 'Team') + (config.sprint ? '  •  ' + config.sprint : '');
-      doc.text(teamLine, W / 2, y, { align: 'center' });
-      y += 6;
-      doc.text(dateStr, W / 2, y, { align: 'center' });
-      y += 6;
+      // Title text
+      doc.setFontSize(15);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(30, 30, 30);
+      const titleText = (config.teamName || 'Daily Log Tracker') + ' — Daily Scrum';
+      doc.text(titleText, margin + 22, y + 7);
 
-      doc.setFont('courier', 'bold');
-      doc.text('Scrum Master :', margin, y);
-      doc.setFont('courier', 'normal');
-      doc.text(config.smName, margin + 38, y);
-      y += 5.5;
+      // Sub-info row (date | members | SM)
+      doc.setFontSize(8.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(100, 100, 100);
+      const metaParts = [];
+      metaParts.push('📅 ' + shortDate);
+      metaParts.push('👥 ' + config.memberCount);
+      metaParts.push('👤 SM: ' + config.smName);
+      if (config.sprint) metaParts.push(config.sprint);
+      doc.text(metaParts.join('   |   '), margin + 22, y + 14);
 
-      doc.setFont('courier', 'bold');
-      doc.text('Team Size    :', margin, y);
-      doc.setFont('courier', 'normal');
-      doc.text(`${config.memberCount} Members`, margin + 38, y);
-      y += 5.5;
+      y = 40;
 
-      doc.setFont('courier', 'bold');
-      doc.text('Blockers     :', margin, y);
-      doc.setFont('courier', 'normal');
-      doc.setTextColor(blockers.length > 0 ? 200 : 22, blockers.length > 0 ? 30 : 120, blockers.length > 0 ? 30 : 60);
-      doc.text(`${blockers.length}`, margin + 38, y);
-      y += 7;
-
-      // ── Thin rule ──
-      hRule(false);
-
-      // ── Blockers section ──
+      // ── BLOCKERS BANNER ──────────────────────────────
       if (blockers.length > 0) {
+        doc.setFillColor(255, 237, 237);
+        doc.roundedRect(margin, y, cW, 11, 2, 2, 'F');
+        doc.setDrawColor(220, 38, 38);
+        doc.setLineWidth(0.4);
+        doc.roundedRect(margin, y, cW, 11, 2, 2, 'S');
+
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(180, 20, 20);
+        const bNames = blockers.map(m => m.name).join(', ');
+        doc.text(`⚠  ${blockers.length} Blockers:  ${bNames}`, margin + 4, y + 7);
+        y += 15;
+      } else {
+        doc.setFillColor(240, 255, 244);
+        doc.roundedRect(margin, y, cW, 10, 2, 2, 'F');
+        doc.setFontSize(9);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(22, 120, 60);
+        doc.text('✓  No blockers today — great job team!', margin + 4, y + 7);
+        y += 14;
+      }
+
+      // ── MEMBER CARDS ─────────────────────────────────
+      const colW = (cW - 10) / 3; // 3 equal columns with gaps
+      const colHeaders = ['YESTERDAY', 'TODAY', 'BLOCKER'];
+      const colKeys = ['y', 't', 'b'];
+
+      members.forEach((m, idx) => {
+        // Estimate card height
+        const lineH = 4.5;
+        const maxLines = Math.max(
+          doc.splitTextToSize(m.yesterday || '—', colW - 6).length,
+          doc.splitTextToSize(m.today || '—', colW - 6).length,
+          doc.splitTextToSize(m.blocker || 'None', colW - 6).length
+        );
+        const cardH = 10 + 8 + (maxLines * lineH) + 8; // avatar row + col headers + content + padding
+        checkY(cardH + 6);
+
+        const cardTop = y;
+        const cardLeft = margin;
+        const cardRight = margin + cW;
+
+        // Card background
+        doc.setFillColor(255, 255, 255);
+        doc.setDrawColor(220, 220, 215);
+        doc.setLineWidth(0.3);
+        doc.roundedRect(cardLeft, cardTop, cW, cardH, 3, 3, 'FD');
+
+        // ── Avatar circle ──
+        const ac = avatarColors[idx % avatarColors.length];
+        const avatarX = cardLeft + 7;
+        const avatarY = cardTop + 7;
+        const avatarR = 6;
+        doc.setFillColor(...ac);
+        doc.circle(avatarX, avatarY, avatarR, 'F');
+        doc.setFontSize(8);
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(255, 255, 255);
+        const initial = (m.name || 'M').charAt(0).toUpperCase();
+        doc.text(initial, avatarX, avatarY + 2.5, { align: 'center' });
+
+        // ── Member name ──
         doc.setFontSize(10);
-        doc.setFont('courier', 'bold');
-        doc.setTextColor(180, 30, 30);
-        doc.text('⚠  BLOCKERS REQUIRING ATTENTION', margin, y);
-        y += 6;
-        blockers.forEach(m => {
-          doc.setFont('courier', 'normal');
-          doc.setTextColor(140, 20, 20);
-          doc.setFontSize(9.5);
-          const lines = doc.splitTextToSize(`• ${m.name} — ${m.blocker}`, cW - 4);
-          lines.forEach(line => {
-            checkY(6);
-            doc.text(line, margin + 2, y);
-            y += 5.5;
+        doc.setFont('helvetica', 'bold');
+        doc.setTextColor(25, 25, 25);
+        doc.text(m.name || `Member ${idx+1}`, avatarX + avatarR + 3, cardTop + 7);
+
+        // ── Blocker badge next to name ──
+        if (hasBlocker(m)) {
+          const nameW = doc.getTextWidth(m.name || `Member ${idx+1}`);
+          const bx = avatarX + avatarR + 3 + nameW + 3;
+          doc.setFillColor(255, 237, 237);
+          doc.roundedRect(bx, cardTop + 2.5, 18, 5, 1, 1, 'F');
+          doc.setFontSize(6.5);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(200, 30, 30);
+          doc.text('⚠ Blocker', bx + 1.5, cardTop + 6.3);
+        }
+
+        // ── 3 column headers ──
+        const colTop = cardTop + 14;
+        colKeys.forEach((key, ci) => {
+          const cx = cardLeft + ci * (colW + 5);
+
+          // Column header bg
+          doc.setFillColor(...colColors[key]);
+          doc.setDrawColor(...colLabelColors[key], 80);
+          doc.setLineWidth(0.2);
+          doc.roundedRect(cx, colTop, colW, 7, 1, 1, 'F');
+
+          // Calendar / target / alert icon + label
+          const icons = { y: '📅', t: '🎯', b: '⚠' };
+          doc.setFontSize(7);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(...colLabelColors[key]);
+          doc.text(colHeaders[ci], cx + colW / 2, colTop + 4.8, { align: 'center' });
+        });
+
+        // ── 3 column content ──
+        const contentTop = colTop + 10;
+        colKeys.forEach((key, ci) => {
+          const cx = cardLeft + ci * (colW + 5);
+          const text = key === 'y' ? m.yesterday : key === 't' ? m.today : (m.blocker || 'None');
+          const isBlockerCol = key === 'b' && hasBlocker(m);
+
+          doc.setFontSize(8);
+          doc.setFont('helvetica', 'normal');
+          doc.setTextColor(isBlockerCol ? 160 : 60, isBlockerCol ? 20 : 60, isBlockerCol ? 20 : 55);
+
+          const lines = doc.splitTextToSize(text || '—', colW - 4);
+          lines.forEach((line, li) => {
+            // Bullet dot
+            doc.setFillColor(isBlockerCol ? 200 : 100, isBlockerCol ? 30 : 100, isBlockerCol ? 30 : 100);
+            doc.circle(cx + 2.5, contentTop + (li * lineH) - 0.5, 0.8, 'F');
+            doc.text(line, cx + 5, contentTop + (li * lineH));
           });
         });
-        y += 2;
-        hRule(false);
-      }
 
-      // ── Each member ──
-      const circledNums = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩'];
-
-      members.forEach((m, i) => {
-        checkY(40);
-
-        // Member name line
-        doc.setFontSize(12);
-        doc.setFont('courier', 'bold');
-        doc.setTextColor(20, 20, 20);
-        const num = circledNums[i] || `${i+1}.`;
-        doc.text(`${num}  ${m.name || 'Member '+(i+1)}`, margin, y);
-
-        if (hasBlocker(m)) {
-          doc.setFontSize(8);
-          doc.setFont('courier', 'bold');
-          doc.setTextColor(200, 30, 30);
-          doc.text('⚠ BLOCKER', W - margin, y, { align: 'right' });
-        }
-        y += 7;
-
-        // YESTERDAY
-        label('YESTERDAY', [37, 99, 235]);
-        body(m.yesterday, [50, 50, 50]);
-        y += 1;
-
-        // TODAY
-        checkY(14);
-        label('TODAY', [22, 120, 60]);
-        body(m.today, [50, 50, 50]);
-        y += 1;
-
-        // BLOCKER
-        checkY(14);
-        label('BLOCKER', hasBlocker(m) ? [200, 30, 30] : [120, 120, 110]);
-        body(m.blocker || 'None', hasBlocker(m) ? [160, 20, 20] : [100, 100, 90]);
-
-        y += 3;
-        hRule(false);
+        y = cardTop + cardH + 5;
       });
 
-      // ── Footer ──
-      checkY(18);
-      doc.setFontSize(9);
-      doc.setFont('courier', 'normal');
-      doc.setTextColor(80, 80, 75);
-      doc.text(`Reported by: ${config.smName}`, margin, y);
-      y += 5;
-      doc.setTextColor(140, 140, 130);
-      doc.text(`${dateStr}${config.sprint ? '  ·  ' + config.sprint : ''}`, margin, y);
-      y += 5;
-      doc.text(`Generated by Scrum Report Tool  ·  Members: ${config.memberCount}  ·  Blockers: ${blockers.length}`, margin, y);
+      // ── FOOTER ───────────────────────────────────────
+      checkY(22);
       y += 4;
 
-      // Final thick rule
-      doc.setFillColor(30, 30, 30);
-      doc.rect(margin, y, cW, 1.2, 'F');
+      // Footer divider
+      doc.setDrawColor(200, 200, 195);
+      doc.setLineWidth(0.4);
+      doc.line(margin, y, W - margin, y);
+      y += 5;
 
-      // ── DOWNLOAD — force a real file save ──
+      // Footer icon row
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(111, 66, 193);
+      doc.text('🎯 Good teamwork drives great results!', margin, y);
+      doc.setTextColor(140, 140, 130);
+      doc.text("Let's keep building and improving together. 🚀", W - margin, y, { align: 'right' });
+      y += 5;
+
+      // Footer separator dots row
+      doc.setFillColor(111, 66, 193);
+      for (let xi = 0; xi < 3; xi++) {
+        doc.circle(margin + xi * 4, y, 1, 'F');
+      }
+      doc.setFontSize(7.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(160, 160, 150);
+      doc.text(`Generated: ${dateStr}  •  SM: ${config.smName}  •  Team size: ${config.memberCount}  •  Blockers: ${blockers.length}`, margin + 14, y + 0.8);
+
+      // ── SAVE ──
       const dateTag = NOW.toISOString().slice(0, 10);
       const teamTag = config.teamName ? '_' + config.teamName.replace(/\s+/g, '_') : '';
       const filename = `Scrum_Report_${dateTag}${teamTag}.pdf`;
 
-      // Use output('blob') then create an object URL — works reliably across browsers
       const blob = doc.output('blob');
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -723,7 +709,7 @@ function generatePDF() {
       document.body.removeChild(a);
       setTimeout(() => URL.revokeObjectURL(url), 3000);
 
-      showToast('✅ PDF downloaded to your system!');
+      showToast('✅ PDF downloaded!');
     } catch(e) {
       console.error(e);
       showToast('Error generating PDF — check console.');
@@ -733,7 +719,6 @@ function generatePDF() {
   }, 120);
 }
 
-// ── NEW DAY ──
 function newDay() {
   if (!confirm('Start a new day? Member names will be kept.')) return;
   members.forEach(m => { m.yesterday = ''; m.today = ''; m.blocker = ''; });
@@ -741,7 +726,6 @@ function newDay() {
   showMemberPage(0);
 }
 
-// ── TOAST ──
 let toastTimer;
 function showToast(msg, dur = 2400) {
   clearTimeout(toastTimer);
